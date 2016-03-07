@@ -37,6 +37,8 @@ The only additional module(s) you'll need in PyMaths is/are:
 <li>1. units - https://pypi.python.org/pypi/units</li>
 </ul>
 <hr>
+
+Cheers!
 ## Additional Info
 
 **Developer:** Areeb Beigh<br>

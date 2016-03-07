@@ -34,6 +34,7 @@ PyMaths by Areeb Beigh - www.areebbeigh.tk
 
 		1. units - https://pypi.python.org/pypi/units
 
+Cheers!
 
 # Additional Info
 
