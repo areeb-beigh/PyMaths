@@ -1,4 +1,6 @@
 #PyMaths
+
+[![Join the chat at https://gitter.im/areeb-beigh/PyMaths](https://badges.gitter.im/areeb-beigh/PyMaths.svg)](https://gitter.im/areeb-beigh/PyMaths?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Requirements Status](https://requires.io/github/areeb-beigh/PyMaths/requirements.svg?branch=master)](https://requires.io/github/areeb-beigh/PyMaths/requirements/?branch=master)
 ## Description
 
