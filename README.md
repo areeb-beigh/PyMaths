@@ -8,6 +8,9 @@ PyMaths is a Python software intended for various mathematical calculations and
 conversions. This software comprises of most of the available conversion types
 and units. Some other features include factorials, permutations and combinations,
 trigonometric functions and trigonometric identities.
+
+28/03/16 - Migrated from Python 2 to Python 3
+
 <hr>
 ## Contributing
 
