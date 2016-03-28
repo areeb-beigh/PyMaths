@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import math
 
@@ -10,10 +10,10 @@ invalidInput = "\n{} [-] Invalid input".format(whiteSpace)
 identities = ['sin(a + b)', 'sin(a - b)', 'cos(a + b)', 'cos(a - b)', 'tan(a + b)', 'tan(a - b)']
 
 def main():
-	print '\n'
-	print ' ', decorator
-	print whiteSpace, "Trigonometric Identities"
-	print ' ', decorator
+	print("\n")
+	print("  " + decorator)
+	print(whiteSpace + " Trigonometric Identities")
+	print("  " + decorator)
 	prompt_identity()
 
 # Prompt the user to choose an identity, prints from the list identities
@@ -21,23 +21,23 @@ def prompt_identity():
 	# We need identity as a global var to pass on to calculate() function
 	global identity
 
-	print '\n'
+	print("\n")
 
 	for serial, identity in enumerate(identities, start=1):
-		print whiteSpace, serial, identity
-	print ' ', decorator
+		print(whiteSpace + " " + str(serial) + " " + identity)
+	print("  " + decorator)
 
 	try:
-		choice = int(raw_input('\n{} Enter your choice: '.format(whiteSpace)))
-	except ValueError:
-		print invalidInput
+		choice = int(input('\n{} Enter your choice: '.format(whiteSpace)))
+	except(ValueError):
+		print(invalidInput)
 		prompt_identity()
 
 
 	if choice in range(1, len(identities) + 1):
 		identity = identities[choice - 1]
 	else:
-		print invalidInput
+		print(invalidInput)
 		prompt_identity()
 
 	prompt_values()
@@ -45,13 +45,13 @@ def prompt_identity():
 # Prompt values for a and b
 def prompt_values():
 	try:
-		a = int(raw_input('\n{} Enter value for a (Radians): '.format(whiteSpace)))
-		b = int(raw_input('\n{} Enter value for b (Radians): '.format(whiteSpace)))
-	except ValueError:
-		print invalidInput
+		a = int(input('\n{} Enter value for a (Radians): '.format(whiteSpace)))
+		b = int(input('\n{} Enter value for b (Radians): '.format(whiteSpace)))
+	except(ValueError):
+		print(invalidInput)
 		prompt_values()
-	except KeyboardInterrupt:
-		print '\n\n{} [-] Going back to previous menu'.format(whiteSpace)
+	except(KeyboardInterrupt):
+		print("\n\n{} [-] Going back to previous menu".format(whiteSpace))
 		prompt_identity()
 
 	# Answer is at index 0
@@ -60,8 +60,8 @@ def prompt_values():
 	# Formula is at index 1
 	formula = calculate(identity, a, b)[1]
 
-	print "\n{0} Formula: {1}".format(whiteSpace, formula)
-	print "{0} Answer: {1}".format(whiteSpace, result)
+	print("\n{0} Formula: {1}".format(whiteSpace, formula))
+	print("{0} Answer: {1}".format(whiteSpace, result))
 
 	prompt_values()
 

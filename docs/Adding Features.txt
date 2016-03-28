@@ -15,7 +15,7 @@ PyMaths by Areeb Beigh - www.areebbeigh.tk
 
 		Next make sure you copy the initials setups in the new script, as:
 
-			#!/usr/bin/python
+			#!/usr/bin/python3
 			# -*- coding: utf-8 -*-
 
 			#<Imports here>
@@ -25,10 +25,10 @@ PyMaths by Areeb Beigh - www.areebbeigh.tk
 			invalidInput = "\n{} [-] Invalid input".format(whiteSpace)
 
 			def main():
-			print '\n'
-			print ' ', decorator
-			print "{} [GENERAL NAME HERE]".format(whiteSpace)
-			print ' ', decorator
+			print("\n")
+			print("  " + decorator)
+			print("{} [GENERAL NAME HERE]".format(whiteSpace))
+			print("  " + decorator)
 			<CALL SOME PROMPT FUNCTION>
 
 		After that you can add the rest of the methods / classes in your script.

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import math
 
@@ -13,74 +13,74 @@ units = ['Radian', 'Degree']
 functions = ['Sin', 'Cos', 'Tan', 'Cosec', 'Sec', 'Cot']
 
 def main():
-	print '\n'
-	print ' ', decorator
-	print whiteSpace, "Trigonometry"
-	print ' ', decorator
+	print("\n")
+	print("  " + decorator)
+	print(whiteSpace + " Trigonometry")
+	print("  " + decorator)
 	prompt_unit()
 
 # Prompt for the unit
 def prompt_unit():
 	global unit
-	print '\n'
+	print("\n")
 
 	for serial, unit in enumerate(units, start=1):
-		print "{0} {1}. {2}".format(whiteSpace, serial, unit)
+		print("{0} {1}. {2}".format(whiteSpace, serial, unit))
 
-	print ' ', decorator
+	print("  " + decorator)
 
 	try:
-		choice = int(raw_input('\n{} Enter your choice: '.format(whiteSpace)))
-	except ValueError:
-		print invalidInput
+		choice = int(input('\n{} Enter your choice: '.format(whiteSpace)))
+	except(ValueError):
+		print(invalidInput)
 		prompt_unit()
 
 	if choice in range(1, len(units) + 1):
 		unit = units[choice - 1]
 		prompt_function()
 	else:
-		print invalidInput
+		print(invalidInput)
 		prompt_unit()
 
 # Prompt for the trig funcntion
 def prompt_function():
 	global function
-	print '\n'
+	print("\n")
 
 	for serial, function in enumerate(functions, start=1):
-		print "{0} {1}. {2}".format(whiteSpace, serial, function)
+		print("{0} {1}. {2}".format(whiteSpace, serial, function))
 
-	print ' ', decorator
+	print("  " + decorator)
 
 	try:
-		choice = int(raw_input('\n{} Enter your choice: '.format(whiteSpace)))
-	except ValueError:
-		print invalidInput
+		choice = int(input('\n{} Enter your choice: '.format(whiteSpace)))
+	except(ValueError):
+		print(invalidInput)
 		prompt_function()
-	except KeyboardInterrupt:
-		print '\n\n{} [-] Going back to unit choice...'.format(whiteSpace)
+	except(KeyboardInterrupt):
+		print("\n\n{} [-] Going back to unit choice...".format(whiteSpace))
 		prompt_unit()
 
 	if choice in range(1, len(functions) + 1):
 		function = functions[choice - 1]
 		prompt_value()
 	else:
-		print invalidInput
+		print(invalidInput)
 		prompt_function()
 
 # Prompt value (degree / radian)
 def prompt_value():
 	try:
-		value = float(raw_input('\n{} Angle: '.format(whiteSpace)))
-	except KeyboardInterrupt:
-		print '\n\n{} [-] Going back to function choice...'.format(whiteSpace)
+		value = float(input('\n{} Angle: '.format(whiteSpace)))
+	except(KeyboardInterrupt):
+		print("\n\n{} [-] Going back to function choice...".format(whiteSpace))
 		prompt_function()
-	except ValueError:
-		print invalidInput
+	except(ValueError):
+		print(invalidInput)
 		prompt_value()
 
 	answer = calculate(unit, function, value)
-	print '{0} Answer: {1}'.format(whiteSpace, answer)
+	print("{0} Answer: {1}".format(whiteSpace, answer))
 
 	prompt_value()
 

@@ -5,7 +5,7 @@ PyMaths by Areeb Beigh - www.areebbeigh.tk
 # Description
 
 	PyMaths is a Python software intended for various mathematical calculations and
-	conversions. This software comprises of most of the available conversion types
+	conversions. This software comprises of most of the available converion types
 	and units. Some other features include factorials, permutations and combinations,
 	trigonometric functions and trigonometric identities.
 
@@ -19,8 +19,7 @@ PyMaths by Areeb Beigh - www.areebbeigh.tk
 		2. Additional modules required
 		3. Tested or not?
 
-	If the modification is good enough it will surely be added. For more info about 
-        contributing check docs
+	If the modification is good enough it will surely be added.
 
 # Bugs
 
@@ -28,13 +27,12 @@ PyMaths by Areeb Beigh - www.areebbeigh.tk
 	project and describe your problem in detail, with the Traceback error (if any)
 	or the calculation error. The bug will be fixed as soon as possible.
 
-# Requirements:
+# Requirements for Python (2.7+):
 	
 	The only additional module(s) you'll need in PyMaths is/are:
 
 		1. units - https://pypi.python.org/pypi/units
 
-Cheers!
 
 # Additional Info
 
