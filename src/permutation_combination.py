@@ -33,7 +33,7 @@ def calculate(n, r):
 	try:
 		permutation = factorial(n) / factorial(n - r)
 		combination = factorial(n) / (factorial(r) * factorial(n - r))
-	# This error comes from factioral()
+	# This error is rasied by factioral() for invalid inputs
 	except(ValueError):
 		permutation = 0
 		combination = 0

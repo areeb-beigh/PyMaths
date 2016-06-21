@@ -68,8 +68,10 @@ def prompt_function():
 		print(invalidInput)
 		prompt_function()
 
-# Prompt value (degree / radian)
+# Prompt value for the angle
 def prompt_value():
+	
+	# Makes sure that the input is numeric, prints error if not
 	try:
 		value = float(input('\n{} Angle: '.format(whiteSpace)))
 	except(KeyboardInterrupt):
@@ -80,7 +82,11 @@ def prompt_value():
 		prompt_value()
 
 	answer = calculate(unit, function, value)
-	print("{0} Answer: {1}".format(whiteSpace, answer))
+	
+	if(answer != None):
+		print("{0} Answer: {1}".format(whiteSpace, answer))
+	else:
+		print("[-] Unexpected error occured")
 
 	prompt_value()
 
@@ -93,11 +99,23 @@ def calculate(unit, function, value):
 	def tan(value):
 		return math.tan(value)
 	def cosec(value):
-		return 1 / sin(value)
+		try:
+			return 1 / sin(value)
+		except(ZeroDivisionError):
+			return "Infinity"
 	def sec(value):
 		return 1 / cos(value)
 	def cot(value):
-		return 1 / tan(value)
+		try:
+			return 1 / tan(value)
+		except(ZeroDivisionError):
+			return "Infinity"
+	
+	# For the unit testing to work we return null for non-numeric input
+	try:
+		value = float(value)
+	except(ValueError):
+		return None;
 
 	if function == 'Sin':
 
@@ -107,7 +125,7 @@ def calculate(unit, function, value):
 
 		# If chosen unit was Degree
 		elif unit == 'Degree':
-			return sin(round(math.radians(value), 2))
+			return sin(math.radians(value))
 
 	elif function == 'Cos':
 
@@ -115,7 +133,7 @@ def calculate(unit, function, value):
 			return cos(value)
 
 		elif unit == 'Degree':
-			return cos(round(math.radians(value), 2))
+			return cos(math.radians(value))
 
 	elif function == 'Tan':
 
@@ -123,7 +141,7 @@ def calculate(unit, function, value):
 			return tan(value)
 
 		elif unit == 'Degree':
-			return tan(round(math.radians(value), 2))
+			return tan(math.radians(value))
 
 	elif function == 'Cosec':
 
@@ -131,7 +149,7 @@ def calculate(unit, function, value):
 			return cosec(value)
 
 		elif unit == 'Degree':
-			return cosec(round(math.radians(value), 2))
+			return cosec(math.radians(value))
 
 	elif function == 'Sec':
 
@@ -139,7 +157,7 @@ def calculate(unit, function, value):
 			return sec(value)
 
 		elif unit == 'Degree':
-			return sec(round(math.radians(value), 2))
+			return sec(math.radians(value))
 
 	elif function == 'Cot':
 
@@ -147,7 +165,7 @@ def calculate(unit, function, value):
 			return cot(value)
 
 		elif unit == 'Degree':
-			return cot(round(math.radians(value), 2))
+			return cot(math.radians(value))
 			
 	else:
-		return "[-] Unexpected error occured"
+		return None

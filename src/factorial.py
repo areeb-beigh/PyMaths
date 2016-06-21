@@ -24,6 +24,7 @@ def prompt():
 
 def calculate(number):
 	if number >= 1:
+		number = int(number)
 		result = 1
 		for i in range(1, number + 1):
 			result *= i
