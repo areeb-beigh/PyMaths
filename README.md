@@ -9,7 +9,8 @@ conversions. This software comprises of most of the available conversion types
 and units. Some other features include factorials, permutations and combinations,
 trigonometric functions and trigonometric identities.
 
-28/03/16 - Migrated from Python 2 to Python 3
+Note: This is the first time I've written unit tests for any project (never needed to do it before) and I'm still new to this,
+please notify me if you find any problems in the test scripts.
 
 <hr>
 ## Contributing
@@ -19,9 +20,9 @@ make a pull request with a readme.txt file which will have the information
 about:
 
 <ul>
-<li>1. Scripts in which changes have been made</li>
-<li>2. Additional modules required</li>
-<li>3. Tested or not?</li>
+<li>Scripts in which changes have been made</li>
+<li>Additional modules required</li>
+<li>Include your tests</li>
 </ul>
 
 If the modification is good enough it will surely be added. For more info about
@@ -35,9 +36,9 @@ or the calculation error. The bug will be fixed as soon as possible.
 <hr>
 ## Requirements:
 	
-The only additional module(s) you'll need in PyMaths is/are:
+Additional module(s) you'll need in PyMaths is/are:
 <ul>
-<li>1. units - https://pypi.python.org/pypi/units</li>
+<li>units - https://pypi.python.org/pypi/units</li>
 </ul>
 <hr>
 
