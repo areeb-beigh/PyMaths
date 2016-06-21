@@ -4,6 +4,8 @@
 [![Requirements Status](https://requires.io/github/areeb-beigh/PyMaths/requirements.svg?branch=master)](https://requires.io/github/areeb-beigh/PyMaths/requirements/?branch=master)
 ## Description
 
+~Practice Project~
+
 PyMaths is a Python software intended for various mathematical calculations and
 conversions. This software comprises of most of the available conversion types
 and units. Some other features include factorials, permutations and combinations,
