@@ -11,6 +11,8 @@ trigonometric functions and trigonometric identities.
 
 28/03/16 - Migrated from Python 2 to Python 3
 
+### WARNING: Bad structure and code (beginners practise project) Will be fixed it if time permits
+
 <hr>
 ## Contributing
 

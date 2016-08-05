@@ -5,44 +5,44 @@ from units.predefined import define_units
 
 define_units()
 
-whiteSpace = "   "
+white_space = "   "
 decorator = "-" * 35
-invalidInput = "\n{} [-] Invalid input".format(whiteSpace)
+invalid_input = "\n{} [-] Invalid input".format(white_space)
 
 # Defining some types of measurement with their units in lists
 conversions = ['Length', 'Weight', 'Volume', 'Time', 'Computer']
 
 length = [('Millimeters', 'mm'), ('Centimeters', 'cm'),
-			('Decimeters', 'dm'), ('Meters', 'm'),
-			('Kilometers', 'km'), ('Inches', 'inch'),
-			('Feet', 'ft'), ('Yards', 'yd'),
-			('Fathoms', 'fathom'), ('Rods', 'rd'),
-			('Furlong', 'fur'), ('Leagues', 'league'),
-			('Miles', 'mi'), ('Nautical Miles', 'NM'),
-			('Cables', 'cable'), ('Lighth Years', 'ly'),
-			('Astronomical Units', 'AU'), ('Parsec', 'pc')
-			]
+          ('Decimeters', 'dm'), ('Meters', 'm'),
+          ('Kilometers', 'km'), ('Inches', 'inch'),
+          ('Feet', 'ft'), ('Yards', 'yd'),
+          ('Fathoms', 'fathom'), ('Rods', 'rd'),
+          ('Furlong', 'fur'), ('Leagues', 'league'),
+          ('Miles', 'mi'), ('Nautical Miles', 'NM'),
+          ('Cables', 'cable'), ('Lighth Years', 'ly'),
+          ('Astronomical Units', 'AU'), ('Parsec', 'pc')
+          ]
 
-weight = [('Miligrams', 'mg'), ('Centigrams', 'cg'), 
-			('Decigrams', 'dg'), ('Grams', 'g'), 
-			('Kilograms', 'kg'), ('Ounces', 'oz'),
-			('Pounds', 'lb'), ('Tons', 'ton'),
-			('Metric Ton', 'tonne'), ('Grains', 'grain'), 
-			('Drams', 'dr'), ('Hundredweight (Quintal)', 'cwt')
-			]
+weight = [('Miligrams', 'mg'), ('Centigrams', 'cg'),
+          ('Decigrams', 'dg'), ('Grams', 'g'),
+          ('Kilograms', 'kg'), ('Ounces', 'oz'),
+          ('Pounds', 'lb'), ('Tons', 'ton'),
+          ('Metric Ton', 'tonne'), ('Grains', 'grain'),
+          ('Drams', 'dr'), ('Hundredweight (Quintal)', 'cwt')
+          ]
 
-volume = [('Milliliter', 'mL'), ('Centiliter', 'cL'), 
-			('Deciliter', 'dL'), ('Liter', 'L'),
-			('Kiloliter', 'kL')]
+volume = [('Milliliter', 'mL'), ('Centiliter', 'cL'),
+          ('Deciliter', 'dL'), ('Liter', 'L'),
+          ('Kiloliter', 'kL')]
 
 time = [('Second', 's'), ('Minute', 'min'),
-			('Hour', 'h'), ('Day', 'day'),
-			('Week', 'wk')]
+        ('Hour', 'h'), ('Day', 'day'),
+        ('Week', 'wk')]
 
-computer = [('Bit', 'B'), ('Kibibyte', 'KiB'), 
-				('Mebibyte', 'MiB'), ('Gegibyte', 'GiB'),
-				('Tebibyte', 'TiB'), ('Pecibyte', 'PiB')
-				]
+computer = [('Bit', 'B'), ('Kibibyte', 'KiB'),
+            ('Mebibyte', 'MiB'), ('Gegibyte', 'GiB'),
+            ('Tebibyte', 'TiB'), ('Pecibyte', 'PiB')
+            ]
 
 # These dictionaries will be filled by assign_units()
 length_dict = {}
@@ -60,108 +60,115 @@ computer_dict:
 ('Gegibyte', 'GiB'), ('Tebibyte', 'TiB'), ('Pecibyte', 'PiB')]
 '''
 
+
 def main():
-	print("\n")
-	print("  " + decorator)
-	print("{} Converter".format(whiteSpace))
-	print("  " + decorator)
-	assign_units()
-	prompt_conversion()
+    print("\n")
+    print("  " + decorator)
+    print("{} Converter".format(white_space))
+    print("  " + decorator)
+    assign_units()
+    prompt_conversion()
+
 
 # Assign units using unit() to the units of each quantity in 'conversions'
 def assign_units():
-	for measureType in conversions:
-		measureType = measureType.lower()
-		dictionary = {}
+    for measure_type in conversions:
+        measure_type = measure_type.lower()
+        dictionary = {}
 
-		for siUnit, abbrv in eval(measureType):
-			siUnit = siUnit.lower()
-			assignUnit = 'unit(\'{}\')'.format(abbrv)
-			pair = {siUnit: assignUnit}
-			dictionary.update(pair)
-	
-		measureType += '_dict'
-		eval(measureType).update(dictionary)
+        for si_unit, abbrv in eval(measure_type):
+            si_unit = si_unit.lower()
+            assignUnit = 'unit(\'{}\')'.format(abbrv)
+            pair = {si_unit: assignUnit}
+            dictionary.update(pair)
+
+        measure_type += '_dict'
+        eval(measure_type).update(dictionary)
+
 
 # Asks the user to select the type of quantity he wants to convert from 'conversions'
 def prompt_conversion():
-	global conversionName, conversionType
-	print("\n")
+    global conversion_name, conversion_type
+    print("\n")
 
-	conversions.sort()
+    conversions.sort()
 
-	for serial, conversion in enumerate(conversions, start=1):
-		print("{0} {1}. {2}".format(whiteSpace, serial, conversion))
-	
-	print("  " + decorator)
+    for serial, conversion in enumerate(conversions, start=1):
+        print("{0} {1}. {2}".format(white_space, serial, conversion))
 
-	try:
-		choice = int(input('\n{} Enter your choice: '.format(whiteSpace)))
-	except(ValueError):
-		print(invalidInput)
-		prompt_conversion()
-	
-	if choice in range(1, len(conversions) + 1):
-		conversionName = conversions[choice - 1].lower()
-		conversionType = eval(conversions[choice - 1].lower())
-		prompt_unit(conversionType)
-	else:
-		print(invalidInput)
-		prompt_conversion() 
+    print("  " + decorator)
 
-# Asks the user for the unit of the value he wants to input
-def prompt_unit(conversionType):
-	print("\n")
+    try:
+        choice = int(input('\n{} Enter your choice: '.format(white_space)))
+    except(ValueError):
+        print(invalid_input)
+        prompt_conversion()
 
-	for serial, (unit, abbrv) in enumerate(conversionType, start=1):
-		print("{0} {1}. {2} - {3}".format(whiteSpace, serial, unit, abbrv))
+    if choice in range(1, len(conversions) + 1):
+        conversion_name = conversions[choice - 1].lower()
+        conversion_type = eval(conversions[choice - 1].lower())
+        prompt_unit(conversion_type)
+    else:
+        print(invalid_input)
+        prompt_conversion()
 
-	print("  " + decorator)
+    # Asks the user for the unit of the value he wants to input
 
-	try:
-		choice = int(input('\n{} Enter your choice: '.format(whiteSpace)))
-	except(ValueError):
-		print(invalidInput)
-		prompt_unit(conversionType)
-	except(KeyboardInterrupt):
-		print("\n\n{} [-] Going back to conversion choice...".format(whiteSpace))
-		prompt_conversion()
 
-	if choice in range(1, len(conversionType) + 1):
-		unit = conversionType[choice - 1][1]
-		ask_input(unit)
-	else:
-		print(invalidInput)
-		prompt_unit(conversionType)
+def prompt_unit(conversion_type):
+    print("\n")
+
+    for serial, (unit, abbrv) in enumerate(conversion_type, start=1):
+        print("{0} {1}. {2} - {3}".format(white_space, serial, unit, abbrv))
+
+    print("  " + decorator)
+
+    try:
+        choice = int(input('\n{} Enter your choice: '.format(white_space)))
+    except ValueError:
+        print(invalid_input)
+        prompt_unit(conversion_type)
+    except KeyboardInterrupt:
+        print("\n\n{} [-] Going back to conversion choice...".format(white_space))
+        prompt_conversion()
+
+    if choice in range(1, len(conversion_type) + 1):
+        unit = conversion_type[choice - 1][1]
+        ask_input(unit)
+    else:
+        print(invalid_input)
+        prompt_unit(conversion_type)
+
 
 # Asks the user the value to convert
-def ask_input(givenUnit):
-	try:
-		value = float(input('\n{0} Enter the value in {1}: '.format(whiteSpace, givenUnit)))
-	except(ValueError):
-		print(invalidInput)
-		ask_input(givenUnit)
-	except(KeyboardInterrupt):
-		print("\n\n{} [-] Going back to unit choice...".format(whiteSpace))
-		prompt_unit(conversionType)
+def ask_input(given_unit):
+    try:
+        value = float(input('\n{0} Enter the value in {1}: '.format(white_space, given_unit)))
+    except ValueError:
+        print(invalid_input)
+        ask_input(given_unit)
+    except KeyboardInterrupt:
+        print("\n\n{} [-] Going back to unit choice...".format(white_space))
+        prompt_unit(conversion_type)
 
-	results = calculate(conversionName, value, givenUnit)
-	print("\n")
-	print("{} Conversions: ".format(whiteSpace))
-	print("\n")
-	for result in results:
-		print("{0} {1} {2} = {3}".format(whiteSpace, value, unit(givenUnit), result))
-	print("  " + decorator)
+    results = calculate(conversion_name, value, given_unit)
+    print("\n")
+    print("{} Conversions: ".format(white_space))
+    print("\n")
+    for result in results:
+        print("{0} {1} {2} = {3}".format(white_space, value, unit(given_unit), result))
+    print("  " + decorator)
 
-	ask_input(givenUnit)
+    ask_input(given_unit)
+
 
 # Does the conversion
 # name = length, value = given value, given unit = unit which user chose in prompt_unit()
 def calculate(name, value, givenUnit):
-	conversionDict = eval(name + '_dict')
-	results = []
-	for newUnit in conversionDict.values():
-		convertedValue = eval(newUnit)(unit(givenUnit)(value))
-		results.append(convertedValue)
+    conversion_dict = eval(name + '_dict')
+    results = []
+    for newUnit in conversion_dict.values():
+        converted_value = eval(newUnit)(unit(givenUnit)(value))
+        results.append(converted_value)
 
-	return results
+    return results

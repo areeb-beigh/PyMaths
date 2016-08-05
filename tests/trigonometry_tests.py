@@ -2,21 +2,23 @@ from nose.tools import *
 from src.trigonometry import calculate
 import math
 
-
-invalidInputs = {
+invalid_inputs = {
     "iuedh": None,
     "uihfiohyh": None,
     "": None,
-    }
+}
 
 '''
 To avoid a ton of repetition this function makes the result supplied from calculate()
 and the expected result global variables to test equality
 '''
+
+
 def get_result_expected_pair(answersDict, unit, function, angle):
     global result, expected
     result = calculate(unit, function, angle)
     expected = answersDict[angle]
+
 
 '''
 This function takes in the answers dictionary, units of the angle, the function and
@@ -26,23 +28,26 @@ returned by calculate() is equal to the expected value.
 The parameter isInvalid is a boolean that is True if the supplied input is an invalid input
 i.e a string of non-numeric characters.
 '''
+
+
 def assert_equality(answersDict, unit, function, isInvalid=False):
     for angle in list(answersDict.keys()):
         get_result_expected_pair(answersDict, unit, function, angle)
 
-        if(not(isInvalid)):
-            if(result != "Infinity"):
-                assert_equal(round(result,2), expected)
+        if not (isInvalid):
+            if result != "Infinity":
+                assert_equal(round(result, 2), expected)
             else:
                 assert_equal(result, expected)
         else:
             assert_equal(result, expected)
 
+
 # Tests the Sin function
 def test_sin():
     function = "Sin"
 
-    degreeAngles = {
+    degree_angles = {
         90: 1.0,
         60: 0.87,
         45: 0.71,
@@ -50,8 +55,8 @@ def test_sin():
         0: 0.0,
         99999: -0.99,
     }
-    
-    radianAngles = {
+
+    radian_angles = {
         math.radians(90): 1.0,
         math.radians(60): 0.87,
         math.radians(45): 0.71,
@@ -60,16 +65,17 @@ def test_sin():
         math.radians(99999): -0.99,
     }
 
-    assert_equality(degreeAngles, "Degree", function)
-    assert_equality(radianAngles, "Radian", function)
-    assert_equality(invalidInputs, "Degree", function, True)
-    assert_equality(invalidInputs, "Radian", function, True)
+    assert_equality(degree_angles, "Degree", function)
+    assert_equality(radian_angles, "Radian", function)
+    assert_equality(invalid_inputs, "Degree", function, True)
+    assert_equality(invalid_inputs, "Radian", function, True)
+
 
 # Tests the Cos function
 def test_cos():
     function = "Cos"
 
-    degreeAngles = {
+    degree_angles = {
         90: 0.0,
         60: 0.5,
         45: 0.71,
@@ -77,8 +83,8 @@ def test_cos():
         0: 1.0,
         99999: 0.16,
     }
-    
-    radianAngles = {
+
+    radian_engles = {
         math.radians(90): 0.0,
         math.radians(60): 0.5,
         math.radians(45): 0.71,
@@ -87,16 +93,17 @@ def test_cos():
         math.radians(99999): 0.16,
     }
 
-    assert_equality(degreeAngles, "Degree", function)
-    assert_equality(radianAngles, "Radian", function)
-    assert_equality(invalidInputs, "Degree", function, True)
-    assert_equality(invalidInputs, "Radian", function, True)
+    assert_equality(degree_angles, "Degree", function)
+    assert_equality(radian_engles, "Radian", function)
+    assert_equality(invalid_inputs, "Degree", function, True)
+    assert_equality(invalid_inputs, "Radian", function, True)
+
 
 # Tests the Tan function
 def test_tan():
     function = "Tan"
 
-    degreeAngles = {
+    degree_angles = {
         90: 1.633123935319537e+16,
         60: 1.73,
         45: 1.00,
@@ -104,8 +111,8 @@ def test_tan():
         0: 0.00,
         99999: -6.31,
     }
-    
-    radianAngles = {
+
+    radian_angles = {
         math.radians(90): 1.633123935319537e+16,
         math.radians(60): 1.73,
         math.radians(45): 1.00,
@@ -114,16 +121,17 @@ def test_tan():
         math.radians(99999): -6.31,
     }
 
-    assert_equality(degreeAngles, "Degree", function)
-    assert_equality(radianAngles, "Radian", function)
-    assert_equality(invalidInputs, "Degree", function, True)
-    assert_equality(invalidInputs, "Radian", function, True)
+    assert_equality(degree_angles, "Degree", function)
+    assert_equality(radian_angles, "Radian", function)
+    assert_equality(invalid_inputs, "Degree", function, True)
+    assert_equality(invalid_inputs, "Radian", function, True)
+
 
 # Tests the Cosec function
 def test_cosec():
     function = "Cosec"
 
-    degreeAngles = {
+    degree_angles = {
         90: 1.0,
         60: 1.15,
         45: 1.41,
@@ -131,8 +139,8 @@ def test_cosec():
         0: "Infinity",
         99999: -1.01,
     }
-    
-    radianAngles = {
+
+    radian_angles = {
         math.radians(90): 1.0,
         math.radians(60): 1.15,
         math.radians(45): 1.41,
@@ -141,16 +149,17 @@ def test_cosec():
         math.radians(99999): -1.01,
     }
 
-    assert_equality(degreeAngles, "Degree", function)
-    assert_equality(radianAngles, "Radian", function)
-    assert_equality(invalidInputs, "Degree", function, True)
-    assert_equality(invalidInputs, "Radian", function, True)
+    assert_equality(degree_angles, "Degree", function)
+    assert_equality(radian_angles, "Radian", function)
+    assert_equality(invalid_inputs, "Degree", function, True)
+    assert_equality(invalid_inputs, "Radian", function, True)
+
 
 # Tests the Sec function
 def test_sec():
     function = "Sec"
 
-    degreeAngles = {
+    degree_angles = {
         90: 1.633123935319537e+16,
         60: 2.00,
         45: 1.41,
@@ -158,8 +167,8 @@ def test_sec():
         0: 1.00,
         99999: 6.39,
     }
-    
-    radianAngles = {
+
+    radian_angles = {
         math.radians(90): 1.633123935319537e+16,
         math.radians(60): 2.00,
         math.radians(45): 1.41,
@@ -168,16 +177,17 @@ def test_sec():
         math.radians(99999): 6.39,
     }
 
-    assert_equality(degreeAngles, "Degree", function)
-    assert_equality(radianAngles, "Radian", function)
-    assert_equality(invalidInputs, "Degree", function, True)
-    assert_equality(invalidInputs, "Radian", function, True)
+    assert_equality(degree_angles, "Degree", function)
+    assert_equality(radian_angles, "Radian", function)
+    assert_equality(invalid_inputs, "Degree", function, True)
+    assert_equality(invalid_inputs, "Radian", function, True)
+
 
 # Tests the Cot function
 def test_cot():
     function = "Cot"
 
-    degreeAngles = {
+    degree_angles = {
         90: 0.00,
         60: 0.58,
         45: 1.00,
@@ -185,8 +195,8 @@ def test_cot():
         0: "Infinity",
         99999: -0.16,
     }
-    
-    radianAngles = {
+
+    radian_angles = {
         math.radians(90): 0.00,
         math.radians(60): 0.58,
         math.radians(45): 1.00,
@@ -195,7 +205,7 @@ def test_cot():
         math.radians(99999): -0.16,
     }
 
-    assert_equality(degreeAngles, "Degree", function)
-    assert_equality(radianAngles, "Radian", function)
-    assert_equality(invalidInputs, "Degree", function, True)
-    assert_equality(invalidInputs, "Radian", function, True)
+    assert_equality(degree_angles, "Degree", function)
+    assert_equality(radian_angles, "Radian", function)
+    assert_equality(invalid_inputs, "Degree", function, True)
+    assert_equality(invalid_inputs, "Radian", function, True)

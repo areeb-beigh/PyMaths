@@ -2,96 +2,100 @@
 # -*- coding: utf-8 -*-
 import math
 
-whiteSpace = "   "
+white_space = "   "
 decorator = "-" * 35
-invalidInput = "\n{} [-] Invalid input".format(whiteSpace)
+invalid_input = "\n{} [-] Invalid input".format(white_space)
 
 # Available options
 options = ['Compound Interest', 'Simple Interest']
 
+
 def main():
-	print("\n")
-	print("  " + decorator)
-	print("{} Financial Mathematics".format(whiteSpace))
-	print("  " + decorator)
-	prompt()
+    print("\n")
+    print("  " + decorator)
+    print("{} Financial Mathematics".format(white_space))
+    print("  " + decorator)
+    prompt()
+
 
 # Print from options and ask the user to choose one
 def prompt():
-	print("\n")
+    print("\n")
 
-	for serial, option in enumerate(options, start=1):
-		print("{0} {1}. {2}".format(whiteSpace, serial, option))
+    for serial, option in enumerate(options, start=1):
+        print("{0} {1}. {2}".format(white_space, serial, option))
 
-	print("  " + decorator)
+    print("  " + decorator)
 
-	try:
-		choice = int(input("\n{} Enter your choice: ".format(whiteSpace)))
-	except(ValueError):
-		print(invalidInput)
-		prompt()
+    try:
+        choice = int(input("\n{} Enter your choice: ".format(white_space)))
+    except ValueError:
+        print(invalid_input)
+        prompt()
 
-	if choice in range(1, len(options) + 1):
-		prompt_values(options[choice - 1])
-	else:
-		print(invalidInput)
-		prompt()
+    if choice in range(1, len(options) + 1):
+        prompt_values(options[choice - 1])
+    else:
+        print(invalid_input)
+        prompt()
+
 
 # Prompt values for Compunt Interest or Simple Interest
 def prompt_values(userChoice):
+    if userChoice == 'Compound Interest':
 
-	if userChoice == 'Compound Interest':
+        try:
+            initial_dep = float(input("\n{} Initial deposit: ".format(white_space)))
+            interest_rate = float(input("{} Annual interest rate (percent): ".format(white_space)))
+            times_compded = float(input("{} Number of times the interest is compounded: ".format(white_space)))
+            time = float(input("{} Number of years the money is invested for: ".format(white_space)))
+        except ValueError:
+            print(invalid_input)
+            prompt_values(userChoice)
+        except KeyboardInterrupt:
+            print("\n\n{} [-] Going back to previous menu".format(white_space))
+            prompt()
 
-		try:
-			initialDeposit = float(input("\n{} Initial deposit: ".format(whiteSpace)))
-			interestRate = float(input("{} Annual interest rate (percent): ".format(whiteSpace)))
-			timesCompounded = float(input("{} Number of times the interest is compounded: ".format(whiteSpace)))
-			time = float(input("{} Number of years the money is invested for: ".format(whiteSpace)))
-		except(ValueError):
-			print(invalidInput)
-			prompt_values(userChoice)
-		except(KeyboardInterrupt):
-			print("\n\n{} [-] Going back to previous menu".format(whiteSpace))
-			prompt()
-		
-		result = compound_interest(initialDeposit, interestRate, timesCompounded, time)
+        result = compound_interest(initial_dep, interest_rate, times_compded, time)
 
-	elif userChoice == 'Simple Interest':
+    elif userChoice == 'Simple Interest':
 
-		try:
-			loanAmount = float(input("\n{} Loan amount: ".format(whiteSpace)))
-			interestRate = float(input("{} Interest rate (percentage): ".format(whiteSpace)))
-			time = float(input("{} Duration (years): ".format(whiteSpace)))
-		except(ValueError):
-			print(invalidInput)
-			prompt_values(userChoice)
-		except(KeyboardInterrupt):
-			print("\n\n{} [-] Going back to previous menu".format(whiteSpace))
-			prompt()
+        try:
+            loan_amount = float(input("\n{} Loan amount: ".format(white_space)))
+            interest_rate = float(input("{} Interest rate (percentage): ".format(white_space)))
+            time = float(input("{} Duration (years): ".format(white_space)))
+        except ValueError:
+            print(invalid_input)
+            prompt_values(userChoice)
+        except KeyboardInterrupt:
+            print("\n\n{} [-] Going back to previous menu".format(white_space))
+            prompt()
 
-		result = simple_interest(loanAmount, interestRate, time)
+        result = simple_interest(loan_amount, interest_rate, time)
 
-	else:
-		print(invalidInput)
-		prompt_values(userChoice)
-	
-	if(result != None):
-		print("\n{0} Result: {1}".format(whiteSpace, result))
-	else:
-		print("[-] Invalid inputs")
-	prompt_values(userChoice)
+    else:
+        print(invalid_input)
+        prompt_values(userChoice)
+
+    if result != None:
+        print("\n{0} Result: {1}".format(white_space, result))
+    else:
+        print("[-] Invalid inputs")
+    prompt_values(userChoice)
+
 
 # A = P(1+r/n)^nt
-def compound_interest(initialDeposit, interestRate, timesCompounded, time):
-	try:
-		power = timesCompounded * time
-		base = (1 + (( (interestRate / 100)) / timesCompounded))
-		raised = math.pow(base, power)
-		result = raised * initialDeposit
-		return round(result,2)
-	except(ZeroDivisionError):
-		return None;
+def compound_interest(initial_dep, interest_rate, times_compded, time):
+    try:
+        power = times_compded * time
+        base = (1 + (((interest_rate / 100)) / times_compded))
+        raised = math.pow(base, power)
+        result = raised * initial_dep
+        return round(result, 2)
+    except ZeroDivisionError:
+        return None;
+
 
 # S = P * I * N
 def simple_interest(loan, interestRate, time):
-	return loan * (interestRate / 100) * time
+    return loan * (interestRate / 100) * time
