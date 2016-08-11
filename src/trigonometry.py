@@ -1,180 +1,76 @@
-#!/usr/bin/python3
-# -*- coding: utf-8 -*-
+# Python imports
 import math
 
-white_space = "   "
-decorator = "-" * 35
-invalid_input = "\n{} [-] Invalid input".format(white_space)
-
-# Available units
-units = ['Radian', 'Degree']
-
-# Available trig functions
-functions = ['Sin', 'Cos', 'Tan', 'Cosec', 'Sec', 'Cot']
+# Local imports
+from src.inputhandler import take_input
 
 
-def main():
-    print("\n")
-    print("  " + decorator)
-    print(white_space + " Trigonometry")
-    print("  " + decorator)
-    prompt_unit()
+def get_input(preset_unit="dummy"):
+    """
+    Takes user input, validates it and finally prints the result
+    returned by the calculate function
 
+    Parameters:
+        preset_unit:
+            If this is given and it is in the list of valid units
+            then the units selection will be skipped (used in recursion)
+    """
 
-# Prompt for the unit
-def prompt_unit():
-    global unit
-    print("\n")
+    units = ['Degree', 'Radian']
 
-    for serial, unit in enumerate(units, start=1):
-        print("{0} {1}. {2}".format(white_space, serial, unit))
+    functions = [
+        'Sine',
+        'Cosine',
+        'Tangent',
+        'Arc Sine',
+        'Arc Cosine',
+        'Arc Tangent',
+        'Hyperbolic Sine',
+        'Hyperbolic Cosine',
+        'Hyperbolic Tangent',
+        'Go Back',
+    ]
 
-    print("  " + decorator)
+    function_values = [
+        'sin',
+        'cos',
+        'tan',
+        'asin',
+        'acos',
+        'atan',
+        'sinh',
+        'cosh',
+        'tanh',
+    ]
 
-    try:
-        choice = int(input('\n{} Enter your choice: '.format(white_space)))
-    except ValueError:
-        print(invalid_input)
-        prompt_unit()
-
-    if choice in range(1, len(units) + 1):
-        unit = units[choice - 1]
-        prompt_function()
+    if preset_unit.title() not in units:
+        unit_choice = take_input(units, max_value=len(units))
+        unit = units[unit_choice - 1].lower()
     else:
-        print(invalid_input)
-        prompt_unit()
+        unit = preset_unit
 
-
-# Prompt for the trig funcntion
-def prompt_function():
-    global function
-    print("\n")
-
-    for serial, function in enumerate(functions, start=1):
-        print("{0} {1}. {2}".format(white_space, serial, function))
-
-    print("  " + decorator)
-
+    print("     Unit:", unit)
+    function_choice = take_input(functions, max_value=len(functions))
+    # Index error would occur if the user selected the Go Back option
+    # In that case he is taken back to the main menu
     try:
-        choice = int(input('\n{} Enter your choice: '.format(white_space)))
-    except(ValueError):
-        print(invalid_input)
-        prompt_function()
-    except KeyboardInterrupt:
-        print("\n\n{} [-] Going back to unit choice...".format(white_space))
-        prompt_unit()
-
-    if choice in range(1, len(functions) + 1):
-        function = functions[choice - 1]
-        prompt_value()
-    else:
-        print(invalid_input)
-        prompt_function()
+        function = function_values[function_choice - 1]
+    except IndexError:
+        return
+    angle = int(input("Enter angle in {}s: ".format(unit)))
+    result = calculate(function, angle, unit)
+    print("     Answer:", result)
+    # Go back with the selected unit
+    get_input(unit)
 
 
-# Prompt value for the angle
-def prompt_value():
-    # Makes sure that the input is numeric, prints error if not
-    try:
-        value = float(input('\n{} Angle: '.format(white_space)))
-    except KeyboardInterrupt:
-        print("\n\n{} [-] Going back to function choice...".format(white_space))
-        prompt_function()
-    except ValueError:
-        print(invalid_input)
-        prompt_value()
+def calculate(function, angle, units):
+    """
+    Returns the calculated result of the given angle
+    """
 
-    answer = calculate(unit, function, value)
+    if units == "degree":
+        angle = math.radians(angle)
 
-    if answer != None:
-        print("{0} Answer: {1}".format(white_space, answer))
-    else:
-        print("[-] Unexpected error occured")
-
-    prompt_value()
-
-
-# Do the magic
-def calculate(unit, function, value):
-    def sin(value):
-        return math.sin(value)
-
-    def cos(value):
-        return math.cos(value)
-
-    def tan(value):
-        return math.tan(value)
-
-    def cosec(value):
-        try:
-            return 1 / sin(value)
-        except(ZeroDivisionError):
-            return "Infinity"
-
-    def sec(value):
-        return 1 / cos(value)
-
-    def cot(value):
-        try:
-            return 1 / tan(value)
-        except(ZeroDivisionError):
-            return "Infinity"
-
-    # For the unit testing to work we return null for non-numeric input
-    try:
-        value = float(value)
-    except ValueError:
-        return None;
-
-    if function == 'Sin':
-
-        # If chosen unit was Radian
-        if unit == 'Radian':
-            return sin(value)
-
-        # If chosen unit was Degree
-        elif unit == 'Degree':
-            return sin(math.radians(value))
-
-    elif function == 'Cos':
-
-        if unit == 'Radian':
-            return cos(value)
-
-        elif unit == 'Degree':
-            return cos(math.radians(value))
-
-    elif function == 'Tan':
-
-        if unit == 'Radian':
-            return tan(value)
-
-        elif unit == 'Degree':
-            return tan(math.radians(value))
-
-    elif function == 'Cosec':
-
-        if unit == 'Radian':
-            return cosec(value)
-
-        elif unit == 'Degree':
-            return cosec(math.radians(value))
-
-    elif function == 'Sec':
-
-        if unit == 'Radian':
-            return sec(value)
-
-        elif unit == 'Degree':
-            return sec(math.radians(value))
-
-    elif function == 'Cot':
-
-        if unit == 'Radian':
-            return cot(value)
-
-        elif unit == 'Degree':
-            return cot(math.radians(value))
-
-    else:
-        return None
+    method_call = "math.{0}({1})".format(function, angle)
+    return eval(method_call)

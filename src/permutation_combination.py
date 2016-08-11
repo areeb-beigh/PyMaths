@@ -1,45 +1,33 @@
-#!/usr/bin/python3
-# -*- coding: utf-8 -*-
-from src.factorial import calculate as factorial
-
-white_space = "   "
-decorator = "-" * 35
-invalid_input = "\n{} [-] Invalid input".format(white_space)
+# Python imports
+import math
 
 
-def main():
-    print("\n")
-    print("  " + decorator)
-    print("{} Permutations & Combinations".format(white_space))
-    print("  " + decorator)
-    prompt()
+def get_input():
+    """
+    Takes user input, validates it and finally prints the result
+    returned by the calculate function
+    """
 
+    n = int(input("Enter value for n: "))
+    r = int(input("Enter value for r: "))
 
-# Prompt for values for n and r
-def prompt():
-    try:
-        n = int(input('\n{} Value of n: '.format(white_space)))
-        r = int(input('{} Value for r: '.format(white_space)))
-    except ValueError:
-        print(invalid_input)
-        prompt()
+    while r > n:
+        print("Value of r can't be greater than n")
+        n = int(input("Enter value for n: "))
+        r = int(input("Enter value for r: "))
 
     result = calculate(n, r)
-    print("\n")
-    print("{0} Permutations: {1}".format(white_space, result[0]))
-    print("{0} Combinations: {1}".format(white_space, result[1]))
-    prompt()
+    print("     Permutations:", result[0])
+    print("     Combinations:", result[1])
 
 
-# Do the calculations
 def calculate(n, r):
-    try:
-        permutation = factorial(n) / factorial(n - r)
-        combination = factorial(n) / (factorial(r) * factorial(n - r))
-    # This error is rasied by factioral() for invalid inputs
-    except ValueError:
-        permutation = 0
-        combination = 0
+    """
+    Takes values for n and r and returns the number of permutations
+    and combinations in a tuple - (permutations, combinations)
+    """
 
-    # Return the number of permutations and combinations in a list
-    return [permutation, combination]
+    permutations = math.factorial(n) / math.factorial(n - r)
+    combinations = math.factorial(n) / (math.factorial(n-r) * math.factorial(r))
+
+    return permutations, combinations

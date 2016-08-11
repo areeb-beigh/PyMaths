@@ -1,98 +1,76 @@
-#!/usr/bin/python3
-# -*- coding: utf-8 -*-
+# Python imports
 import math
 
-white_space = "   "
-decorator = "-" * 35
-invalid_input = "\n{} [-] Invalid input".format(white_space)
-
-# Available identities
-identities = ['sin(a + b)', 'sin(a - b)', 'cos(a + b)', 'cos(a - b)', 'tan(a + b)', 'tan(a - b)']
+# Local imports
+from src.inputhandler import take_input
 
 
-def main():
-    print("\n")
-    print("  " + decorator)
-    print(white_space + " Trigonometric Identities")
-    print("  " + decorator)
-    prompt_identity()
+def get_input(preset_unit='dummy'):
+    """
+    Takes user input, validates it and finally prints the result
+    returned by the calculate function
+    """
 
+    units = ['Degree', 'Radian']
 
-# Prompt the user to choose an identity, prints from the list identities
-def prompt_identity():
-    # We need identity as a global var to pass on to calculate() function
-    global identity
+    identities = [
+        'Sin(a + b)',
+        'Sin(a - b)',
+        'Cos(a + b)',
+        'Cos(a - b)',
+        'Tan(a + b)',
+        'Tan(a - b)',
+    ]
 
-    print("\n")
-
-    for serial, identity in enumerate(identities, start=1):
-        print(white_space + " " + str(serial) + " " + identity)
-    print("  " + decorator)
-
-    try:
-        choice = int(input('\n{} Enter your choice: '.format(white_space)))
-    except ValueError:
-        print(invalid_input)
-        prompt_identity()
-
-    if choice in range(1, len(identities) + 1):
-        identity = identities[choice - 1]
+    if preset_unit.title() not in units:
+        unit_choice = take_input(units, len(units))
+        unit = units[unit_choice - 1].lower()
     else:
-        print(invalid_input)
-        prompt_identity()
+        unit = preset_unit
 
-    prompt_values()
-
-
-# Prompt values for a and b
-def prompt_values():
-    try:
-        a = float(input('\n{} Enter value for a (Radians): '.format(white_space)))
-        b = float(input('\n{} Enter value for b (Radians): '.format(white_space)))
-    except ValueError:
-        print(invalid_input)
-        prompt_values()
-    except KeyboardInterrupt:
-        print("\n\n{} [-] Going back to previous menu".format(white_space))
-        prompt_identity()
-
-    # Answer is at index 0
-    result = calculate(identity, a, b)[0]
-
-    # Formula is at index 1
-    formula = calculate(identity, a, b)[1]
-
-    print("\n{0} Formula: {1}".format(white_space, formula))
-    print("{0} Answer: {1}".format(white_space, result))
-
-    prompt_values()
+    identity_choice = take_input(identities, len(identities))
+    identity = identities[identity_choice - 1].lower()
+    a = int(input("Enter value for a: "))
+    b = int(input("Enter value for b: "))
+    result = calculate(identity, unit, a, b)
+    print("Expression:", result[0])
+    print("Answer:", result[1])
+    get_input(unit)
 
 
-# Do the magic, calculate the result and make the formula
-def calculate(identity, a, b):
+def calculate(identity, unit, a, b):
+    """
+    Takes the parameter identity as a string and angles a and b and
+    returns a tuple containing the expression for the identity with
+    the given values and the answer of the expression as well
+    """
+
+    if unit == "degree":
+        a = math.radians(a)
+        b = math.radians(b)
+
     if identity == 'sin(a + b)':
-        result = (math.sin(a) * math.cos(b)) + (math.sin(b) * math.cos(a))
-        formula = 'sin({0}) * cos({1}) + sin({1}) * cos({0})'.format(a, b)
+        answer = (math.sin(a) * math.cos(b)) + (math.sin(b) * math.cos(a))
+        expression = 'sin({0}) * cos({1}) + sin({1}) * cos({0})'.format(a, b)
 
     elif identity == 'sin(a - b)':
-        result = (math.sin(a) * math.cos(b)) - (math.sin(b) * math.cos(a))
-        formula = 'sin({0}) * cos({1}) - sin({1}) * cos({0})'.format(a, b)
+        answer = (math.sin(a) * math.cos(b)) - (math.sin(b) * math.cos(a))
+        expression = 'sin({0}) * cos({1}) - sin({1}) * cos({0})'.format(a, b)
 
     elif identity == 'cos(a + b)':
-        result = (math.cos(a) * math.cos(b)) - (math.sin(a) * math.sin(b))
-        formula = 'cos({0}) * cos({1}) - sin({0}) * sin({1})'.format(a, b)
+        answer = (math.cos(a) * math.cos(b)) - (math.sin(a) * math.sin(b))
+        expression = 'cos({0}) * cos({1}) - sin({0}) * sin({1})'.format(a, b)
 
     elif identity == 'cos(a - b)':
-        result = (math.cos(a) * math.cos(b)) + (math.sin(b) * math.sin(a))
-        formula = 'cos({0}) * cos({1}) + sin({0}) * sin({1})'.format(a, b)
+        answer = (math.cos(a) * math.cos(b)) + (math.sin(b) * math.sin(a))
+        expression = 'cos({0}) * cos({1}) + sin({0}) * sin({1})'.format(a, b)
 
     elif identity == 'tan(a + b)':
-        result = (math.tan(a) + math.tan(b)) / 1 - (math.tan(a) * math.tan(b))
-        formula = 'tan({0}) + tan({1}) / 1 - (tan({0}) * tan({1}))'.format(a, b)
+        answer = (math.tan(a) + math.tan(b)) / 1 - (math.tan(a) * math.tan(b))
+        expression = 'tan({0}) + tan({1}) / 1 - (tan({0}) * tan({1}))'.format(a, b)
 
     elif identity == 'tan(a - b)':
-        result = (math.tan(a) - math.tan(b)) / 1 + (math.tan(a) * math.tan(b))
-        formula = 'tan({0}) - tan({1}) / 1 + (tan({0}) * tan({1}))'.format(a, b)
+        answer = (math.tan(a) - math.tan(b)) / 1 + (math.tan(a) * math.tan(b))
+        expression = 'tan({0}) - tan({1}) / 1 + (tan({0}) * tan({1}))'.format(a, b)
 
-    # Return the result and the formula used in a list
-    return [result, formula]
+    return expression, answer
